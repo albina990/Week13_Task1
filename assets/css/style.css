@@ -1,0 +1,74 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;500;700&display=swap');
+*{
+    box-sizing:border-box;
+    color:rgba(255, 255, 255, 0.774);
+    background-color: black;
+    font-family: roboto;
+}
+.container{
+    max-width: 1200px;
+    margin: 0 auto;
+    
+}
+h3, .name, .date{
+    color:rgb(49, 49, 173);
+}
+.flex-container{
+    display:flex;
+    justify-content: space-between;
+}
+.form, .chat{
+    width: 45%;
+}
+p, label {
+    font-size: 14px;
+    margin-bottom: 5px;
+}
+form{
+    display:flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+fieldset{
+    display: flex;
+    justify-content: flex-start;
+    border: none;
+    padding-left: 0;
+}
+fieldset p {
+    margin-top: 0;
+    margin-right: 30px;
+}
+
+input, textarea{
+    border: 2px dashed rgb(49, 49, 173);
+    margin-bottom: 20px;
+}
+input[type="submit"]{
+    background-color:rgb(49, 49, 173);
+    max-width: 100px;
+    padding: 5px 10px;
+}
+input[type="radio"]{
+    margin-right: 20px;
+}
+.chat__item{
+    display: flex;
+    flex-direction: column;
+    border-bottom: 2px dashed rgb(49, 49, 173);
+    margin-bottom: 10px;
+}
+.chat__member{
+    display: grid;
+    grid-template-columns: 60px 250px 1fr;
+    gap: 15px;
+}
+img{
+    max-width: 60px;
+    margin-right: 10px;
+}
+.name{
+    font-weight: 600;
+}
+
+
