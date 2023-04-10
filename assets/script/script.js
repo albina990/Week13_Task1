@@ -1,11 +1,11 @@
-let showname = document.querySelector("input#yes");
-let hidename = document.querySelector("input#no");
+let showname = document.getElementById("yes");
+let hidename = document.getElementById("no");
 let labelName = document.querySelector('label[for="name"]');
-let member = document.querySelector("input#name");
-let avatar = document.querySelector("input#avatar");
+let member = document.getElementById("name");
+let avatar = document.getElementById("avatar");
 let chat = document.querySelector(".chat");
-let comment = document.querySelector("textarea#comment");
-let submit = document.querySelector("input#submit");
+let comment = document.getElementById("comment");
+let submit = document.getElementById("submit");
 let stansardAvatars = [
     'https://i.pinimg.com/564x/c1/53/28/c153281dd54afa86a1d651fc4a08b016.jpg',
     'https://i.pinimg.com/564x/b5/61/a6/b561a65ed688d9b0b7280030d71e43f9.jpg',
@@ -18,87 +18,35 @@ let stansardAvatars = [
 ];
 
 submit.addEventListener("click", sendPost);
-
-function checkSpam(str) {
-    let str1 = str.replace(/viagra/gi, "***");
-    let str2 = str1.replace(/виагра/gi, "***");
-    let str3 = str2.replace(/XXX/gi, "***");
-    return str3;
-}
-function checkMember(str) {
-    let memberNameLow = str.value.toLowerCase().trim();
-    let firstSpacePosition = memberNameLow.indexOf(" ");
-    let lastSpacePosition = memberNameLow.lastIndexOf(" ");
-
-    let memberNameSpace = memberNameLow.slice(firstSpacePosition + 1, lastSpacePosition);
-    let memberName;
-    let memberSirname;
-    let memberLastname;
-    let memberSirnameLow;
-
-    if (
-        firstSpacePosition !== -1 &&
-        lastSpacePosition !== -1 &&
-        lastSpacePosition !== firstSpacePosition &&
-        !memberNameSpace.includes(' ')
-    ) {
-        memberName =
-            memberNameLow[0].toUpperCase() +
-            memberNameLow.slice(1, firstSpacePosition);
-        memberSirnameLow = memberNameLow
-            .slice(firstSpacePosition + 1, lastSpacePosition)
-            .trim();
-        memberSirname =
-            memberSirnameLow[0].toUpperCase() +
-            memberSirnameLow.slice(1, lastSpacePosition).trim();
-        let memberLastnameLow = memberNameLow.slice(lastSpacePosition + 1);
-        memberLastname =
-            memberLastnameLow[0].toUpperCase() + memberLastnameLow.slice(1);
-    } else if (
-        lastSpacePosition == firstSpacePosition &&
-        firstSpacePosition !== -1
-    ) {
-        memberName =
-            memberNameLow[0].toUpperCase() +
-            memberNameLow.slice(1, firstSpacePosition);
-        memberSirnameLow = memberNameLow.slice(firstSpacePosition + 1);
-        memberSirname =
-            memberSirnameLow[0].toUpperCase() + memberSirnameLow.slice(1).trim();
-        memberLastname = "";
-    } else {
-        memberName = memberNameLow[0].toUpperCase() + memberNameLow.slice(1);
-        memberSirname = "";
-        memberLastname = "";
-    }
-    return `${memberName} ${memberSirname} ${memberLastname}`;
-}
-
 hidename.addEventListener('click', setUnChecked);
 showname.addEventListener('click', setChecked);
 
+function checkSpam(str) {
+    let newStr = str.replace(/viagra/gi, "***").replace(/виагра/gi, "***").replace(/XXX/gi, "***");
+    return newStr;
+}
+function checkMember(str) {
+    let fullName = str.value.toLowerCase().trim().split(/\s+/).map(val => val[0].toUpperCase() + val.substring(1)).join(' ');
+    return fullName;
+}
 function setUnChecked(){
-    hidename.setAttribute('checked', 'checked');
     labelName.style.display = 'none';
     member.style.display = 'none';
-    showname.removeAttribute('checked');
 }
 
 function setChecked(){
-    showname.setAttribute('checked', 'checked');
     labelName.style.display = 'block';
     member.style.display = 'block';
-    hidename.removeAttribute('checked');
 }
-
 function sendPost(event) {
     event.preventDefault()
-    let vullName;
+    let fullName;
     let avatarLink;
 
     if(member.value === ''){
-        vullName = 'username';
+        fullName = 'username';
     } else {
-        vullName = checkMember(member);
+        fullName = checkMember(member);
     }
 
     if(avatar.value != ''){
@@ -129,7 +77,7 @@ function sendPost(event) {
         src="${avatarLink}"
         alt="avatar"
     />
-    <p class="name">${vullName}</p>
+    <p class="name">${fullName}</p>
     <p class="date">${datePost}</p>
 </div>
 <p class="comment">${commentContent}</p>
